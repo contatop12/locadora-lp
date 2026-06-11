@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     // }
 
     // Log para verificação (remover em produção)
-    console.log("[v0] Lead recebido:", {
+    console.log("Lead recebido:", {
       name,
       whatsapp,
       source,
@@ -45,7 +45,7 @@ export async function POST(request: Request) {
       message: "Lead capturado com sucesso",
     })
   } catch (error) {
-    console.error("[v0] Erro ao processar lead:", error)
+    console.error("Erro ao processar lead:", error)
     return NextResponse.json(
       { error: "Erro ao processar solicitação" },
       { status: 500 }

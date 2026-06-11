@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
 import './globals.css'
 
@@ -77,7 +76,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           />
         </noscript>
         {children}
-        <Analytics />
       </body>
     </html>
   )
