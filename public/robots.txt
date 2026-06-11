@@ -1,0 +1,15 @@
+User-agent: *
+# Bloqueia áreas administrativas e páginas que não devem ser rastreadas
+Disallow: /admin/
+Disallow: /login/
+Disallow: /private/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /thank-you/
+Disallow: /*?*  # Bloqueia URLs com parâmetros para evitar conteúdo duplicado
+
+# Permite o acesso a todo o restante do site, incluindo a landing page
+Allow: /
+
+# Sitemap para facilitar a descoberta das páginas importantes
+Sitemap: https://andaime.locadoraexatidao.com.br/sitemap.xml
