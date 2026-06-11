@@ -1,5 +1,3 @@
-import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "standalone",
@@ -10,7 +8,5 @@ const nextConfig = {
     unoptimized: true,
   },
 };
-
-initOpenNextCloudflareForDev();
 
 export default nextConfig;
