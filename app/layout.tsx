@@ -64,6 +64,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-M2CX3J5W');`,
           }}
         />
+        <Script
+          id="remove-v0-badge"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(){function r(){document.querySelectorAll('[id^="v0-built-with-button"],a[href*="built-with-v0"]').forEach(function(e){var n=e.closest('[id^="v0-built-with-button"]')||e.parentElement;(n&&n.id&&n.id.indexOf("v0-built-with-button")===0?n:e).remove()})}function o(){r(),new MutationObserver(r).observe(document.documentElement,{childList:!0,subtree:!0})}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",o):o()})();`,
+          }}
+        />
       </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
         {/* Google Tag Manager (noscript) */}
