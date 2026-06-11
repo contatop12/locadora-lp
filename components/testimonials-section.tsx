@@ -37,6 +37,11 @@ export function TestimonialsSection() {
     <section className="py-10 md:py-16 bg-secondary/50" aria-labelledby="testimonials-heading">
       <div className="container mx-auto px-4">
         <div className="text-center mb-6 md:mb-8">
+          <span className="section-kicker justify-center mb-2">
+            <span className="section-kicker-line" />
+            Depoimentos
+            <span className="section-kicker-line" />
+          </span>
           <h2
             id="testimonials-heading"
             className="text-xl md:text-4xl font-bold text-foreground mb-2 md:mb-4 text-balance"

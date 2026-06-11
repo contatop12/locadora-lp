@@ -19,7 +19,7 @@ export function Header() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 bg-black backdrop-blur border-b border-border">
+    <header className="sticky top-0 z-50 bg-black backdrop-blur border-b border-white/10 shadow-lg shadow-black/30">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-18 py-2">
           <Link href="/guarulhos" className="flex items-center">
@@ -39,7 +39,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-background/70 hover:text-background transition-colors text-sm"
+                className="relative text-white/70 hover:text-white transition-colors text-sm after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-0 after:rounded-full after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
               >
                 {item.label}
               </Link>
@@ -69,7 +69,7 @@ export function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="lg:hidden py-4 border-t border-border/20" aria-label="Navegação mobile">
+          <nav className="lg:hidden py-4 border-t border-white/10" aria-label="Navegação mobile">
             <div className="flex flex-col gap-4">
               {navItems.map((item) => (
                 <Link

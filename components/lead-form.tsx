@@ -61,7 +61,7 @@ export function LeadForm({ variant = "hero", className = "" }: LeadFormProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: name.trim(),
-          whatsapp: cleanPhone,
+          whatsapp: `55${cleanPhone}`,
           formId: formId,
           source: "landing-page-andaimes-itaquera",
           timestamp: new Date().toISOString(),
@@ -82,10 +82,14 @@ export function LeadForm({ variant = "hero", className = "" }: LeadFormProps) {
 
   if (isSubmitted) {
     return (
-      <div className={`bg-card border border-primary/20 rounded-lg p-6 text-center ${className}`}>
-        <CheckCircle className="w-12 h-12 text-primary mx-auto mb-3" />
-        <h3 className="text-lg font-semibold text-foreground mb-2">Recebemos seus dados!</h3>
-        <p className="text-muted-foreground">
+      <div className={`bg-card border border-primary/30 rounded-xl p-6 md:p-8 text-center shadow-xl ${className}`}>
+        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <CheckCircle className="w-8 h-8 text-primary" />
+        </div>
+        <h3 className="text-lg font-semibold text-foreground mb-2" style={{ fontFamily: "var(--font-heading)" }}>
+          Recebemos seus dados!
+        </h3>
+        <p className="text-sm md:text-base text-muted-foreground">
           Nossa equipe entrará em contato pelo WhatsApp em poucos minutos.
         </p>
       </div>
@@ -99,17 +103,35 @@ export function LeadForm({ variant = "hero", className = "" }: LeadFormProps) {
 
   return (
     <form id={formId} onSubmit={handleSubmit} className={className}>
-      <div className={`${isHero ? "bg-card/95 backdrop-blur-sm p-4 md:p-5 rounded-xl shadow-xl border border-border" : "space-y-4"}`}>
+      <div
+        className={`${
+          isHero
+            ? "relative bg-card/95 backdrop-blur-sm p-4 md:p-6 rounded-xl shadow-2xl border border-border overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-gradient-to-r before:from-primary before:to-accent"
+            : "space-y-4"
+        }`}
+      >
         {isHero && (
-          <div className="flex items-center gap-2 mb-2 md:mb-3">
-            <WhatsappIcon className="w-4 h-4 md:w-5 md:h-5 text-primary" />
-            <span className="font-semibold text-foreground text-sm md:text-base">Solicite seu orçamento</span>
+          <div className="flex items-center gap-3 mb-3 md:mb-4">
+            <div className="w-9 h-9 md:w-10 md:h-10 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+              <WhatsappIcon className="w-4 h-4 md:w-5 md:h-5 text-primary" />
+            </div>
+            <div>
+              <span
+                className="block font-semibold text-foreground text-sm md:text-base leading-tight"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                Solicite seu orçamento
+              </span>
+              <span className="text-[11px] md:text-xs text-muted-foreground">
+                Grátis e sem compromisso
+              </span>
+            </div>
           </div>
         )}
 
-        <div className="space-y-2 md:space-y-3">
+        <div className="space-y-3 md:space-y-4">
           <div>
-            <Label htmlFor={`name-${variant}`} className="text-foreground text-xs md:text-sm">
+            <Label htmlFor={`name-${variant}`} className="text-foreground text-xs md:text-sm font-medium">
               Seu nome
             </Label>
             <Input
@@ -118,33 +140,45 @@ export function LeadForm({ variant = "hero", className = "" }: LeadFormProps) {
               placeholder="Digite seu nome"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="bg-background mt-1 h-9 md:h-10 text-sm"
+              className="bg-background mt-1.5 h-10 md:h-11 text-sm rounded-lg border-input focus-visible:border-primary focus-visible:ring-primary/30 transition-colors"
               required
             />
           </div>
 
           <div>
-            <Label htmlFor={`whatsapp-${variant}`} className="text-foreground text-xs md:text-sm">
+            <Label htmlFor={`whatsapp-${variant}`} className="text-foreground text-xs md:text-sm font-medium">
               WhatsApp
             </Label>
-            <Input
-              id={`whatsapp-${variant}`}
-              type="tel"
-              placeholder="(11) 99999-9999"
-              value={whatsapp}
-              onChange={handleWhatsAppChange}
-              className="bg-background mt-1 h-9 md:h-10 text-sm"
-              required
-            />
+            <div className="relative mt-1.5">
+              <span
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground font-medium pointer-events-none border-r border-border pr-2"
+                aria-hidden="true"
+              >
+                +55
+              </span>
+              <Input
+                id={`whatsapp-${variant}`}
+                type="tel"
+                placeholder="(11) 99999-9999"
+                value={whatsapp}
+                onChange={handleWhatsAppChange}
+                className="bg-background pl-14 h-10 md:h-11 text-sm rounded-lg border-input focus-visible:border-primary focus-visible:ring-primary/30 transition-colors"
+                required
+              />
+            </div>
           </div>
         </div>
 
-        {error && <p className="text-xs md:text-sm text-destructive mt-2">{error}</p>}
+        {error && (
+          <p className="text-xs md:text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg px-3 py-2 mt-3" role="alert">
+            {error}
+          </p>
+        )}
 
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-4 md:py-5 text-sm md:text-base mt-3 md:mt-4"
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-5 md:py-6 text-sm md:text-base mt-4 rounded-lg shadow-lg shadow-primary/25 hover:shadow-primary/35 transition-all hover:-translate-y-px"
         >
           {isSubmitting ? (
             <>
@@ -159,7 +193,8 @@ export function LeadForm({ variant = "hero", className = "" }: LeadFormProps) {
           )}
         </Button>
 
-        <p className="text-[10px] md:text-xs text-muted-foreground text-center mt-2 md:mt-3">
+        <p className="flex items-center justify-center gap-1.5 text-[10px] md:text-xs text-muted-foreground text-center mt-3">
+          <CheckCircle className="w-3 h-3 text-primary shrink-0" />
           Responderemos em poucos minutos pelo seu WhatsApp
         </p>
       </div>

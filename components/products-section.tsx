@@ -48,6 +48,11 @@ export function ProductsSection() {
     <section className="py-12 md:py-16 bg-secondary/50" aria-labelledby="products-heading">
       <div className="container mx-auto px-4">
         <div className="text-center mb-6 md:mb-8">
+          <span className="section-kicker justify-center mb-2">
+            <span className="section-kicker-line" />
+            Catálogo
+            <span className="section-kicker-line" />
+          </span>
           <h2
             id="products-heading"
             className="text-2xl md:text-4xl font-bold text-foreground mb-2 md:mb-4 text-balance"
@@ -64,11 +69,16 @@ export function ProductsSection() {
           {products.map((product, index) => (
             <div
               key={index}
-              className={`group bg-card rounded-lg md:rounded-xl border border-border overflow-hidden hover:border-primary/30 transition-all hover:shadow-lg ${
+              className={`group bg-card rounded-lg md:rounded-xl border border-border overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 ${
                 product.featured ? "md:col-span-2 md:row-span-2" : ""
               }`}
             >
-              <div className={`relative ${product.featured ? "aspect-square" : "aspect-[4/3]"}`} style={{ backgroundColor: "lab(100 0 0)" }}>
+              <div className={`relative bg-white ${product.featured ? "aspect-square" : "aspect-[4/3]"}`}>
+                {product.featured && (
+                  <span className="absolute top-2 left-2 md:top-3 md:left-3 z-10 bg-primary text-primary-foreground text-[10px] md:text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded-full">
+                    Mais alugado
+                  </span>
+                )}
                 <Image
                   src={product.image}
                   alt={`${product.name} - Locadora Exatidão`}

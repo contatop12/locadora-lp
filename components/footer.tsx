@@ -4,7 +4,7 @@ import { MapPin, Mail, Clock, MessageCircle } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="bg-foreground border-t border-border">
+    <footer className="bg-black border-t border-white/10">
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
@@ -89,7 +89,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border/20 mt-8 pt-8 text-center">
+        <div className="border-t border-white/10 mt-8 pt-8 text-center">
           <p className="text-background/70 text-sm">
             © {new Date().getFullYear()} Locadora Exatidão. Todos os direitos reservados.
           </p>

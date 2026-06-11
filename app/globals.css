@@ -19,7 +19,7 @@
   --accent: oklch(0.70 0.18 50);
   --accent-foreground: oklch(0.15 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.88 0.02 60);
   --input: oklch(0.92 0.01 60);
   --ring: oklch(0.65 0.20 45);
@@ -120,9 +120,34 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
   }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+}
+
+@utility section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+@utility section-kicker-line {
+  width: 1.5rem;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 9999px;
 }
 
 [id^='v0-built-with-button'],

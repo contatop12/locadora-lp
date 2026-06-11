@@ -34,6 +34,11 @@ export function HowItWorksSection() {
     <section className="py-10 md:py-16 bg-background" aria-labelledby="how-it-works-heading">
       <div className="container mx-auto px-4">
         <div className="text-center mb-6 md:mb-8">
+          <span className="section-kicker justify-center mb-2">
+            <span className="section-kicker-line" />
+            Passo a passo
+            <span className="section-kicker-line" />
+          </span>
           <h2
             id="how-it-works-heading"
             className="text-xl md:text-4xl font-bold text-foreground mb-2 md:mb-4 text-balance"
@@ -49,8 +54,11 @@ export function HowItWorksSection() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-6">
           {steps.map((item, index) => (
             <div key={index} className="text-center">
-              <div className="mx-auto w-10 h-10 md:w-14 md:h-14 bg-primary rounded-full flex items-center justify-center mb-2 md:mb-3">
+              <div className="relative mx-auto w-10 h-10 md:w-14 md:h-14 bg-primary rounded-full flex items-center justify-center mb-2 md:mb-3 shadow-lg shadow-primary/25">
                 <item.icon className="w-5 h-5 md:w-6 md:h-6 text-primary-foreground" />
+                <span className="absolute -top-1 -right-1 w-4 h-4 md:w-5 md:h-5 bg-foreground text-background text-[9px] md:text-[11px] font-bold rounded-full flex items-center justify-center">
+                  {index + 1}
+                </span>
               </div>
               <h3 className="text-xs md:text-base font-semibold text-foreground mb-1">{item.title}</h3>
               <p className="text-muted-foreground text-[10px] md:text-sm leading-relaxed">{item.description}</p>

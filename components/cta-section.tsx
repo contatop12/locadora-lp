@@ -9,8 +9,17 @@ export function CTASection() {
   ]
 
   return (
-    <section className="py-10 md:py-16 bg-foreground" aria-labelledby="cta-heading" id="contato">
-      <div className="container mx-auto px-4">
+    <section className="relative py-10 md:py-16 bg-black overflow-hidden" aria-labelledby="cta-heading" id="contato">
+      {/* Glow decorativo */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 50% at 50% 0%, oklch(0.65 0.20 45 / 0.18), transparent 70%)",
+        }}
+      />
+      <div className="relative container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-6 md:mb-10">
             <h2
@@ -34,7 +43,7 @@ export function CTASection() {
             </div>
           </div>
 
-          <div className="bg-card rounded-lg md:rounded-xl p-4 md:p-8 max-w-md mx-auto">
+          <div className="relative bg-card rounded-xl p-4 md:p-8 max-w-md mx-auto shadow-2xl shadow-primary/10 ring-1 ring-white/10 overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-gradient-to-r before:from-primary before:to-accent">
             <LeadForm variant="footer" />
           </div>
         </div>

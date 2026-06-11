@@ -33,6 +33,11 @@ export function BenefitsSection() {
     <section className="py-10 md:py-16 bg-background" aria-labelledby="benefits-heading">
       <div className="container mx-auto px-4">
         <div className="text-center mb-6 md:mb-8">
+          <span className="section-kicker justify-center mb-2">
+            <span className="section-kicker-line" />
+            Vantagens
+            <span className="section-kicker-line" />
+          </span>
           <h2
             id="benefits-heading"
             className="text-xl md:text-4xl font-bold text-foreground mb-2 md:mb-4 text-balance"
@@ -47,7 +52,7 @@ export function BenefitsSection() {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
           {benefits.map((benefit, index) => (
-            <Card key={index} className="border-border hover:border-primary/30 transition-colors">
+            <Card key={index} className="border-border hover:border-primary/40 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
               <CardContent className="p-3 md:p-6">
                 <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-2 md:mb-4">
                   <benefit.icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
