@@ -1,5 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
+  "account_id": "0976ee0adac0062c726747d29549308e",
   "name": "locadora-lp",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-04-22",
