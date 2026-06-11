@@ -33,11 +33,14 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      - name: Package OpenNext build
+        run: tar -czf open-next.tar.gz .open-next
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: open-next-build
-          path: .open-next/
+          path: open-next.tar.gz
           retention-days: 1
 
       - name: Deploy
