@@ -13,5 +13,6 @@
   },
   "vars": {
     "NEXT_PRIVATE_MINIMAL_MODE": "1"
-  }
+  },
+  "workers_dev": true
 }
