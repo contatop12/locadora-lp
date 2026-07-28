@@ -11,6 +11,10 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel"
 
+interface ApplicationsSectionProps {
+  whatsappUrl?: string
+}
+
 const applications = [
   {
     title: "Obras e Reformas",
@@ -29,7 +33,10 @@ const applications = [
   },
 ]
 
-export function ApplicationsSection() {
+export function ApplicationsSection({ whatsappUrl }: ApplicationsSectionProps = {}) {
+  const ctaHref = whatsappUrl ?? "#formulario"
+  const isExternal = Boolean(whatsappUrl)
+
   return (
     <section className="py-10 md:py-16 bg-background" aria-labelledby="applications-heading">
       <div className="container mx-auto px-4">
@@ -84,9 +91,15 @@ export function ApplicationsSection() {
             Não sabe a quantidade ideal para sua obra?
           </p>
           <Button asChild size="default" className="bg-primary text-primary-foreground hover:bg-primary/90 text-sm md:text-base">
-            <Link href="#formulario">
-              Receba orientação gratuita
-            </Link>
+            {isExternal ? (
+              <a href={ctaHref} target="_blank" rel="noopener noreferrer">
+                Receba orientação gratuita
+              </a>
+            ) : (
+              <Link href={ctaHref}>
+                Receba orientação gratuita
+              </Link>
+            )}
           </Button>
         </div>
       </div>

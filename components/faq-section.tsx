@@ -5,7 +5,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 
-export function FAQSection() {
+interface FAQSectionProps {
+  whatsappUrl?: string
+}
+
+export function FAQSection({ whatsappUrl }: FAQSectionProps = {}) {
+  const ctaHref = whatsappUrl ?? "#formulario"
+  const isExternal = Boolean(whatsappUrl)
   const faqs = [
     {
       question: "Qual o prazo de entrega em Itaquera?",
@@ -85,8 +91,12 @@ export function FAQSection() {
 
           <p className="text-center text-muted-foreground mt-6 md:mt-8 text-sm md:text-base">
             Tem outra dúvida?{" "}
-            <a href="#formulario" className="text-primary font-medium hover:underline">
-              Deixe seu WhatsApp
+            <a
+              href={ctaHref}
+              className="text-primary font-medium hover:underline"
+              {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              {whatsappUrl ? "Fale pelo WhatsApp" : "Deixe seu WhatsApp"}
             </a>{" "}
             que respondemos rapidamente.
           </p>

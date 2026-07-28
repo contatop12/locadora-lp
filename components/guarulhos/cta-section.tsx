@@ -1,7 +1,12 @@
 import { LeadForm } from "../lead-form"
+import { WhatsAppCta } from "../whatsapp-cta"
 import { Shield, Truck, MessageCircle } from "lucide-react"
 
-export function CTASection() {
+interface CTASectionProps {
+  whatsappUrl?: string
+}
+
+export function CTASection({ whatsappUrl }: CTASectionProps = {}) {
   const highlights = [
     { icon: Shield, text: "Andaimes seguros conforme NR-18" },
     { icon: Truck, text: "Entrega rápida em Guarulhos e região" },
@@ -44,7 +49,11 @@ export function CTASection() {
           </div>
 
           <div className="relative bg-card rounded-xl p-4 md:p-8 max-w-md mx-auto shadow-2xl shadow-primary/10 ring-1 ring-white/10 overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-gradient-to-r before:from-primary before:to-accent">
-            <LeadForm variant="footer" />
+            {whatsappUrl ? (
+              <WhatsAppCta href={whatsappUrl} variant="footer" />
+            ) : (
+              <LeadForm variant="footer" />
+            )}
           </div>
         </div>
       </div>

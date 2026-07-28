@@ -4,6 +4,10 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
+interface ProductsSectionProps {
+  whatsappUrl?: string
+}
+
 const products = [
   {
     name: "Andaime Tubular",
@@ -43,7 +47,10 @@ const products = [
   },
 ]
 
-export function ProductsSection() {
+export function ProductsSection({ whatsappUrl }: ProductsSectionProps = {}) {
+  const ctaHref = whatsappUrl ?? "#formulario"
+  const isExternal = Boolean(whatsappUrl)
+
   return (
     <section className="py-12 md:py-16 bg-secondary/50" aria-labelledby="products-heading">
       <div className="container mx-auto px-4">
@@ -100,9 +107,15 @@ export function ProductsSection() {
 
         <div className="mt-8 text-center">
           <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-            <Link href="#formulario">
-              Solicite orçamento pelo WhatsApp
-            </Link>
+            {isExternal ? (
+              <a href={ctaHref} target="_blank" rel="noopener noreferrer">
+                Solicite orçamento pelo WhatsApp
+              </a>
+            ) : (
+              <Link href={ctaHref}>
+                Solicite orçamento pelo WhatsApp
+              </Link>
+            )}
           </Button>
         </div>
       </div>

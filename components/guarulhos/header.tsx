@@ -6,8 +6,14 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Menu, X, MessageCircle } from "lucide-react"
 
-export function Header() {
+interface HeaderProps {
+  whatsappUrl?: string
+}
+
+export function Header({ whatsappUrl }: HeaderProps = {}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const ctaHref = whatsappUrl ?? "#formulario"
+  const isExternal = Boolean(whatsappUrl)
 
   const navItems = [
     { href: "#produtos", label: "Produtos" },
@@ -22,7 +28,7 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-black backdrop-blur border-b border-white/10 shadow-lg shadow-black/30">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-18 py-2">
-          <Link href="/guarulhos" className="flex items-center">
+          <Link href={whatsappUrl ? "/guarulhos/whatsapp" : "/guarulhos"} className="flex items-center">
             <Image
               src="/images/logo-exatidao-horizontal.png"
               alt="Exatidão Locação de Equipamentos"
@@ -33,7 +39,6 @@ export function Header() {
             />
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8" aria-label="Navegação principal">
             {navItems.map((item) => (
               <Link
@@ -48,13 +53,19 @@ export function Header() {
 
           <div className="flex items-center gap-4">
             <Button asChild className="hidden sm:flex bg-primary text-primary-foreground hover:bg-primary/90">
-              <Link href="#formulario">
-                <MessageCircle className="w-4 h-4 mr-2" />
-                Orçamento
-              </Link>
+              {isExternal ? (
+                <a href={ctaHref} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Orçamento
+                </a>
+              ) : (
+                <Link href={ctaHref}>
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Orçamento
+                </Link>
+              )}
             </Button>
 
-            {/* Mobile menu button */}
             <button
               type="button"
               className="lg:hidden p-2 text-background"
@@ -67,7 +78,6 @@ export function Header() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {isMenuOpen && (
           <nav className="lg:hidden py-4 border-t border-white/10" aria-label="Navegação mobile">
             <div className="flex flex-col gap-4">
@@ -83,10 +93,22 @@ export function Header() {
               ))}
 
               <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 mt-2">
-                <Link href="#formulario" onClick={() => setIsMenuOpen(false)}>
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  Solicitar Orçamento
-                </Link>
+                {isExternal ? (
+                  <a
+                    href={ctaHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Solicitar Orçamento
+                  </a>
+                ) : (
+                  <Link href={ctaHref} onClick={() => setIsMenuOpen(false)}>
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Solicitar Orçamento
+                  </Link>
+                )}
               </Button>
             </div>
           </nav>

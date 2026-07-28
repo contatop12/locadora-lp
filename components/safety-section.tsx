@@ -3,7 +3,13 @@ import { ShieldCheck, CheckCircle, HardHat } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
-export function SafetySection() {
+interface SafetySectionProps {
+  whatsappUrl?: string
+}
+
+export function SafetySection({ whatsappUrl }: SafetySectionProps = {}) {
+  const ctaHref = whatsappUrl ?? "#formulario"
+  const isExternal = Boolean(whatsappUrl)
   const safetyItems = [
     "Travas diagonais para estabilidade",
     "Guarda-corpos de proteção",
@@ -67,9 +73,15 @@ export function SafetySection() {
             </div>
 
             <Button asChild size="default" className="bg-primary text-primary-foreground hover:bg-primary/90 text-sm md:text-base">
-              <Link href="#formulario">
-                Quero andaime seguro
-              </Link>
+              {isExternal ? (
+                <a href={ctaHref} target="_blank" rel="noopener noreferrer">
+                  Quero andaime seguro
+                </a>
+              ) : (
+                <Link href={ctaHref}>
+                  Quero andaime seguro
+                </Link>
+              )}
             </Button>
           </div>
 

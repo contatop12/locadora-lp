@@ -1,8 +1,13 @@
 import Image from "next/image"
 import { LeadForm } from "./lead-form"
+import { WhatsAppCta } from "./whatsapp-cta"
 import { Shield, Clock, Truck } from "lucide-react"
 
-export function HeroSection() {
+interface HeroSectionProps {
+  whatsappUrl?: string
+}
+
+export function HeroSection({ whatsappUrl }: HeroSectionProps = {}) {
   const benefits = [
     { icon: Shield, text: "Segurança NR-18" },
     { icon: Clock, text: "Montagem rápida" },
@@ -59,9 +64,13 @@ export function HeroSection() {
             </ul>
           </div>
 
-          {/* Right - Form */}
+          {/* Right - Form or WhatsApp CTA */}
           <div id="formulario" className="lg:max-w-md lg:ml-auto">
-            <LeadForm variant="hero" />
+            {whatsappUrl ? (
+              <WhatsAppCta href={whatsappUrl} variant="hero" />
+            ) : (
+              <LeadForm variant="hero" />
+            )}
           </div>
         </div>
       </div>

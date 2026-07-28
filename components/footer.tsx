@@ -2,7 +2,14 @@ import Link from "next/link"
 import Image from "next/image"
 import { MapPin, Mail, Clock, MessageCircle } from "lucide-react"
 
-export function Footer() {
+interface FooterProps {
+  whatsappUrl?: string
+}
+
+export function Footer({ whatsappUrl }: FooterProps = {}) {
+  const ctaHref = whatsappUrl ?? "#formulario"
+  const isExternal = Boolean(whatsappUrl)
+
   return (
     <footer className="bg-black border-t border-white/10">
       <div className="container mx-auto px-4 py-12">
@@ -64,9 +71,20 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <MessageCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                <Link href="#formulario" className="text-background/70 hover:text-background text-sm">
-                  Fale pelo WhatsApp
-                </Link>
+                {isExternal ? (
+                  <a
+                    href={ctaHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-background/70 hover:text-background text-sm"
+                  >
+                    Fale pelo WhatsApp
+                  </a>
+                ) : (
+                  <Link href={ctaHref} className="text-background/70 hover:text-background text-sm">
+                    Fale pelo WhatsApp
+                  </Link>
+                )}
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-primary flex-shrink-0" />
