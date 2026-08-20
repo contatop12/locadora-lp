@@ -1,5 +1,7 @@
 export type WhatsAppCity = "itaquera" | "guarulhos"
 
+const DEFAULT_WHATSAPP_NUMBER = "551126822244"
+
 const MESSAGES: Record<WhatsAppCity, string> = {
   itaquera:
     "Olá! Vim pela página de Itaquera e gostaria de um orçamento de andaimes.",
@@ -8,20 +10,22 @@ const MESSAGES: Record<WhatsAppCity, string> = {
 }
 
 export function getWhatsAppNumber(): string {
-  return process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") ?? ""
+  const fromEnv = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "")
+  return fromEnv || DEFAULT_WHATSAPP_NUMBER
 }
 
 export function getWhatsAppUrl(city: WhatsAppCity): string {
   const number = getWhatsAppNumber()
   const text = encodeURIComponent(MESSAGES[city])
+  return `https://wa.me/${number}?text=${text}`
+}
 
-  if (!number) {
-    console.warn(
-      "NEXT_PUBLIC_WHATSAPP_NUMBER não está definido. Configure o número no .env"
-    )
-  }
+export function getLeadWhatsAppUrl(name?: string): string {
+  const number = getWhatsAppNumber()
+  const trimmed = name?.trim()
+  const message = trimmed
+    ? `Olá! Meu nome é ${trimmed} e solicitei um orçamento de andaimes pelo site.`
+    : "Olá! Solicitei um orçamento de andaimes pelo site."
 
-  return number
-    ? `https://wa.me/${number}?text=${text}`
-    : `https://wa.me/?text=${text}`
+  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`
 }

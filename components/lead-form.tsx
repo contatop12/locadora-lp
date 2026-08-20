@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -20,11 +21,12 @@ interface LeadFormProps {
 }
 
 export function LeadForm({ variant = "hero", className = "" }: LeadFormProps) {
+  const router = useRouter()
   const [name, setName] = useState("")
   const [whatsapp, setWhatsapp] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState("")
+  const formId = `form-${variant === "hero" ? "hero" : variant === "footer" ? "cta" : "inline"}`
 
   const formatWhatsApp = (value: string) => {
     const numbers = value.replace(/\D/g, "")
@@ -48,7 +50,8 @@ export function LeadForm({ variant = "hero", className = "" }: LeadFormProps) {
       return
     }
 
-    if (name.trim().length < 2) {
+    const trimmedName = name.trim()
+    if (trimmedName.length < 2) {
       setError("Por favor, insira seu nome")
       return
     }
@@ -60,7 +63,7 @@ export function LeadForm({ variant = "hero", className = "" }: LeadFormProps) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: name.trim(),
+          name: trimmedName,
           whatsapp: `55${cleanPhone}`,
           formId: formId,
           source: "landing-page-andaimes-itaquera",
@@ -70,33 +73,12 @@ export function LeadForm({ variant = "hero", className = "" }: LeadFormProps) {
 
       if (!response.ok) throw new Error("Erro ao enviar")
 
-      setIsSubmitted(true)
-      setName("")
-      setWhatsapp("")
+      router.push(`/obrigado?nome=${encodeURIComponent(trimmedName)}`)
     } catch {
       setError("Ocorreu um erro. Tente novamente ou entre em contato pelo telefone.")
-    } finally {
       setIsSubmitting(false)
     }
   }
-
-  if (isSubmitted) {
-    return (
-      <div className={`bg-card border border-primary/30 rounded-xl p-6 md:p-8 text-center shadow-xl ${className}`}>
-        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-          <CheckCircle className="w-8 h-8 text-primary" />
-        </div>
-        <h3 className="text-lg font-semibold text-foreground mb-2" style={{ fontFamily: "var(--font-heading)" }}>
-          Recebemos seus dados!
-        </h3>
-        <p className="text-sm md:text-base text-muted-foreground">
-          Nossa equipe entrará em contato pelo WhatsApp em poucos minutos.
-        </p>
-      </div>
-    )
-  }
-
-  const formId = `form-${variant === "hero" ? "hero" : variant === "footer" ? "cta" : "inline"}`
 
   const isHero = variant === "hero"
   const isFooter = variant === "footer"
