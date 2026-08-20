@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation"
 import { CheckCircle, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { getLeadWhatsAppUrl } from "@/lib/whatsapp"
+import { comProtocolo } from "@/lib/tracking"
 
 function WhatsappIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -22,7 +23,13 @@ function WhatsappIcon(props: React.SVGProps<SVGSVGElement>) {
 export function ObrigadoContent() {
   const searchParams = useSearchParams()
   const name = searchParams.get("nome")?.trim() || undefined
-  const whatsappUrl = useMemo(() => getLeadWhatsAppUrl(name), [name])
+  const protocolo = searchParams.get("p")?.trim() || undefined
+  // O protocolo entra no TEXTO da mensagem: é assim que o Chatwoot/n8n liga esta
+  // conversa ao clique no anúncio, sem depender de casar telefone depois.
+  const whatsappUrl = useMemo(
+    () => comProtocolo(getLeadWhatsAppUrl(name), protocolo),
+    [name, protocolo],
+  )
   const [countdown, setCountdown] = useState(3)
 
   useEffect(() => {

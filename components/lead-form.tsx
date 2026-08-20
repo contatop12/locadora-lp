@@ -1,11 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Loader2, CheckCircle } from "lucide-react"
+import { obterAtribuicao, registrarLanding } from "@/lib/tracking"
 
 function WhatsappIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -27,6 +28,12 @@ export function LeadForm({ variant = "hero", className = "" }: LeadFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState("")
   const formId = `form-${variant === "hero" ? "hero" : variant === "footer" ? "cta" : "inline"}`
+
+  // Guarda a URL de entrada e o protocolo assim que a página carrega, antes de
+  // qualquer navegação interna apagar os parâmetros da campanha.
+  useEffect(() => {
+    registrarLanding()
+  }, [])
 
   const formatWhatsApp = (value: string) => {
     const numbers = value.replace(/\D/g, "")
@@ -58,6 +65,8 @@ export function LeadForm({ variant = "hero", className = "" }: LeadFormProps) {
 
     setIsSubmitting(true)
 
+    const atribuicao = obterAtribuicao()
+
     try {
       const response = await fetch("https://n8n.sitespdoze.com.br/webhook/lp-itaquera", {
         method: "POST",
@@ -68,12 +77,15 @@ export function LeadForm({ variant = "hero", className = "" }: LeadFormProps) {
           formId: formId,
           source: "landing-page-andaimes-itaquera",
           timestamp: new Date().toISOString(),
+          ...atribuicao,
         }),
       })
 
       if (!response.ok) throw new Error("Erro ao enviar")
 
-      router.push(`/obrigado?nome=${encodeURIComponent(trimmedName)}`)
+      router.push(
+        `/obrigado?nome=${encodeURIComponent(trimmedName)}&p=${encodeURIComponent(atribuicao.protocol)}`,
+      )
     } catch {
       setError("Ocorreu um erro. Tente novamente ou entre em contato pelo telefone.")
       setIsSubmitting(false)
