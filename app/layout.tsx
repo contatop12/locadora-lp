@@ -8,9 +8,11 @@ const inter = Inter({
   variable: '--font-inter'
 });
 
-const spaceGrotesk = Space_Grotesk({ 
+// Sem preload: só Guarulhos usa; a LP Itaquera tem a própria fonte de títulos.
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: '--font-space-grotesk'
+  variable: '--font-space-grotesk',
+  preload: false,
 });
 
 export const metadata: Metadata = {

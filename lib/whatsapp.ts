@@ -14,10 +14,21 @@ export function getWhatsAppNumber(): string {
   return fromEnv || DEFAULT_WHATSAPP_NUMBER
 }
 
+export function buildWhatsAppUrl(message: string): string {
+  return `https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(message)}`
+}
+
 export function getWhatsAppUrl(city: WhatsAppCity): string {
-  const number = getWhatsAppNumber()
-  const text = encodeURIComponent(MESSAGES[city])
-  return `https://wa.me/${number}?text=${text}`
+  return buildWhatsAppUrl(MESSAGES[city])
+}
+
+/** "551126822244" → "(11) 2682-2244"; celular → "(11) 95150-8844". */
+export function formatWhatsAppNumber(): string {
+  const local = getWhatsAppNumber().replace(/^55/, "")
+  const ddd = local.slice(0, 2)
+  const num = local.slice(2)
+  const split = num.length === 9 ? 5 : 4
+  return `(${ddd}) ${num.slice(0, split)}-${num.slice(split)}`
 }
 
 export function getLeadWhatsAppUrl(name?: string): string {

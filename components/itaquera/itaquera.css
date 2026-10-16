@@ -1,0 +1,384 @@
+/*
+ * LP Itaquera — paleta, texturas e movimento.
+ * Toda animação é CSS (keyframes + scroll-driven animations): nenhum JS de animação.
+ * Navegador sem `animation-timeline` mostra o estado final, sem efeito.
+ * As cores viram utilitários Tailwind (bg-navy, text-signal…) via @theme em app/globals.css.
+ */
+
+.itq {
+  --itq-navy: #12233f; /* azul dos quadros do andaime */
+  --itq-navy-2: #1b3157;
+  --itq-signal: #f26b1d; /* laranja da marca */
+  --itq-signal-deep: #b9470b; /* laranja para texto sobre fundo claro (AA) */
+  --itq-deck: #f8a42b; /* âmbar do logo */
+  --itq-steel: #e6e9ed; /* aço galvanizado */
+  --itq-ink-soft: #4a5873;
+
+  background: #fff;
+  color: var(--itq-navy);
+  overflow-x: clip;
+  interpolate-size: allow-keywords;
+}
+
+html:has(.itq) {
+  scroll-padding-top: 88px;
+}
+
+.itq :focus-visible {
+  outline: 3px solid var(--itq-deck);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------- texturas */
+
+.itq-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(to bottom, #000 30%, transparent 95%);
+}
+
+.itq-hazard {
+  background: repeating-linear-gradient(-45deg, var(--itq-signal) 0 16px, var(--itq-navy) 16px 32px);
+}
+
+.itq-hazard-edges::before,
+.itq-hazard-edges::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  height: 5px;
+  background: repeating-linear-gradient(-45deg, var(--itq-navy) 0 7px, transparent 7px 14px);
+  z-index: 20;
+}
+.itq-hazard-edges::before {
+  top: 0;
+}
+.itq-hazard-edges::after {
+  bottom: 0;
+}
+
+.itq-scroller {
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.itq-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.itq-faq summary {
+  list-style: none;
+}
+.itq-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+/* ---------------------------------------------------------------- header: fica sólido ao rolar */
+
+.itq-header {
+  background: rgb(18 35 63 / 0.97);
+}
+
+@supports (animation-timeline: scroll()) {
+  .itq-header {
+    background: transparent;
+    animation: itq-header-solid linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 160px;
+  }
+}
+
+@keyframes itq-header-solid {
+  to {
+    background: rgb(18 35 63 / 0.97);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.08),
+      0 12px 30px -12px rgb(0 0 0 / 0.45);
+  }
+}
+
+/* ---------------------------------------------------------------- hero: o andaime "monta" na entrada */
+
+/* cada linha do título sobe de dentro da sua faixa, como um módulo sendo encaixado */
+.itq-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.itq-line > span {
+  display: block;
+}
+
+.itq-plank {
+  transform-origin: left;
+}
+
+.itq-bubble {
+  transform-origin: right bottom;
+}
+
+.itq-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.55) 50%, transparent 65%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+/*
+ * Movimento reduzido ≠ sem animação: quem pede menos movimento no sistema ainda vê
+ * fades e preenchimentos; deslocamento, zoom e rotação ficam só para quem não pediu.
+ */
+.itq-plank {
+  animation: itq-plank 0.7s cubic-bezier(0.7, 0, 0.2, 1) 0.35s both;
+}
+.itq-fade {
+  animation: itq-appear 0.7s ease-out both;
+  animation-delay: calc(300ms + var(--i, 0) * 110ms);
+}
+.itq-card-in {
+  animation: itq-appear 0.7s ease-out 0.5s both;
+}
+.itq-bubble {
+  animation: itq-appear 0.3s ease-out both;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .itq-hero-photo {
+    animation: itq-settle 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .itq-line > span {
+    animation: itq-rise 0.8s cubic-bezier(0.2, 0.85, 0.25, 1) both;
+    animation-delay: calc(var(--i, 0) * 110ms);
+  }
+  .itq-fade {
+    animation-name: itq-fade;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .itq-card-in {
+    animation: itq-card 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s both;
+  }
+  .itq-bubble {
+    animation: itq-bubble 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.25) both;
+  }
+  .itq-shine::after {
+    animation: itq-shine 1.1s ease-in-out 1.5s both;
+  }
+}
+
+@keyframes itq-appear {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes itq-settle {
+  from {
+    transform: scale(1.1);
+  }
+}
+@keyframes itq-rise {
+  from {
+    transform: translateY(105%);
+  }
+}
+@keyframes itq-plank {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes itq-fade {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+@keyframes itq-card {
+  from {
+    opacity: 0;
+    transform: translateY(32px) rotate(1.2deg);
+  }
+}
+@keyframes itq-bubble {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+}
+@keyframes itq-shine {
+  to {
+    transform: translateX(120%);
+  }
+}
+
+/* ---------------------------------------------------------------- faixa de bairros */
+
+.itq-ticker {
+  mask-image: linear-gradient(to right, transparent, #000 3%, #000 94%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .itq-ticker-track {
+    animation: itq-marquee 50s linear infinite;
+  }
+  .itq-ticker:hover .itq-ticker-track {
+    animation-play-state: paused;
+  }
+}
+
+/* parada: dá para arrastar a faixa para ver todos os bairros */
+@media (prefers-reduced-motion: reduce) {
+  .itq-ticker {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+}
+
+@keyframes itq-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------------------------------------------------------------- problema: a dor é riscada ao rolar */
+
+.itq-strike {
+  color: rgb(18 35 63 / 0.5);
+  /* inline + background: o risco atravessa todas as linhas, em sequência */
+  background: linear-gradient(var(--itq-signal), var(--itq-signal)) no-repeat 0 58% / 100% 0.12em;
+}
+
+/* atrelado ao scroll (quem rola controla), então vale também com movimento reduzido */
+@supports (animation-timeline: view()) {
+  .itq-strike {
+    animation: itq-strike linear both;
+    animation-timeline: view();
+    animation-range: entry 100% cover 55%;
+  }
+}
+
+@keyframes itq-strike {
+  from {
+    color: var(--itq-navy);
+    background-size: 0% 0.12em;
+  }
+}
+
+/* ---------------------------------------------------------------- como funciona: a viga acende os passos */
+
+.itq-steps {
+  view-timeline-name: --itq-passos;
+}
+
+.itq-beam {
+  transform-origin: top;
+}
+
+@supports (animation-timeline: view()) {
+  .itq-beam {
+    animation: itq-beam linear both;
+    animation-timeline: --itq-passos;
+    animation-range: cover 20% cover 55%;
+  }
+  .itq-node {
+    animation: itq-node linear both;
+    animation-timeline: --itq-passos;
+  }
+  .itq-step:nth-child(1) .itq-node {
+    animation-range: cover 17% cover 21%;
+  }
+  .itq-step:nth-child(2) .itq-node {
+    animation-range: cover 28% cover 32%;
+  }
+  .itq-step:nth-child(3) .itq-node {
+    animation-range: cover 40% cover 44%;
+  }
+  .itq-step:nth-child(4) .itq-node {
+    animation-range: cover 52% cover 56%;
+  }
+}
+
+@keyframes itq-beam {
+  from {
+    transform: scaleY(0);
+  }
+}
+@keyframes itq-node {
+  from {
+    background: var(--itq-navy);
+    color: #fff;
+  }
+}
+
+/* ---------------------------------------------------------------- FAQ: abre com altura animada */
+
+@media (prefers-reduced-motion: no-preference) {
+  .itq-faq details::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size 0.3s ease,
+      content-visibility 0.3s allow-discrete;
+  }
+  .itq-faq details[open]::details-content {
+    block-size: auto;
+  }
+}
+
+/* ---------------------------------------------------------------- botão flutuante */
+
+.itq-fab {
+  isolation: isolate;
+}
+
+/* aparece depois que o CTA do topo sai da tela */
+@supports (animation-timeline: scroll()) {
+  .itq-fab {
+    animation: itq-fab-show linear both;
+    animation-timeline: scroll(root);
+    animation-range: 320px 480px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .itq-fab {
+    animation-name: itq-fab-in;
+  }
+  .itq-fab::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: inherit;
+    animation: itq-ring 2.2s ease-out 3s 3;
+  }
+}
+
+@keyframes itq-fab-show {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes itq-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  80%,
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+@keyframes itq-fab-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.8);
+    visibility: hidden;
+  }
+}
