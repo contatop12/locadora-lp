@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element -- imagens já saem otimizadas (AVIF/WebP) de public/images/itaquera */
 import { ShieldCheck, Truck, Wrench } from "lucide-react"
-import { QuoteBuilder } from "./quote-builder"
 import { WhatsappIcon } from "./ui"
 import { waUrl } from "./whatsapp-messages"
 
@@ -90,8 +89,8 @@ export function Hero() {
       />
       <div aria-hidden="true" className="itq-grid absolute inset-0 -z-10" />
 
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 pb-14 pt-28 md:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:gap-16 lg:pb-24 lg:pt-40">
-        <div>
+      <div className="mx-auto max-w-7xl px-4 pb-14 pt-28 md:px-6 lg:pb-24 lg:pt-40">
+        <div className="max-w-3xl">
           <p className="itq-fade flex items-center gap-3 text-white/85" style={ordem(0)}>
             <span aria-hidden="true" className="h-0.5 w-8 bg-signal" />
             Especialistas em andaimes, servindo Itaquera e região
@@ -146,10 +145,6 @@ export function Hero() {
               Monta sem ferramentas
             </li>
           </ul>
-        </div>
-
-        <div className="lg:pl-2">
-          <QuoteBuilder />
         </div>
       </div>
     </section>
