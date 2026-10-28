@@ -16,14 +16,15 @@ const NAV = [
 export function Header() {
   return (
     <header className="itq-header fixed inset-x-0 top-0 z-50">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 md:h-18 md:px-6">
-        <a href="#inicio" className="shrink-0">
+      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-4 px-4 md:h-20 md:px-6">
+        {/* min-w-0: em telas bem estreitas a logo encolhe em vez de empurrar o botão para fora */}
+        <a href="#inicio" className="min-w-0">
           <img
-            src="/images/itaquera/logo-420.webp"
+            src="/images/itaquera/logo-480.webp"
             alt="Exatidão Locação de Equipamentos"
-            width={420}
-            height={117}
-            className="h-10 w-auto md:h-12"
+            width={480}
+            height={114}
+            className="h-11.25 w-auto max-w-full object-contain object-left md:h-13.5"
           />
         </a>
 
@@ -40,7 +41,7 @@ export function Header() {
           target="_blank"
           rel="noopener noreferrer"
           data-cta="header"
-          className="inline-flex min-h-12 items-center gap-2 rounded-md bg-signal px-4 font-semibold text-navy transition-colors hover:bg-deck"
+          className="inline-flex min-h-12 shrink-0 items-center gap-2 rounded-md bg-signal px-3.5 font-semibold text-navy transition-colors hover:bg-deck sm:px-4"
         >
           <WhatsappIcon className="size-5" />
           Orçamento

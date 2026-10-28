@@ -509,12 +509,12 @@ export function Rodape() {
         <div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/itaquera/logo-420.webp"
+            src="/images/itaquera/logo-480.webp"
             alt="Exatidão Locação de Equipamentos"
-            width={420}
-            height={117}
+            width={480}
+            height={114}
             loading="lazy"
-            className="h-12 w-auto"
+            className="h-9 w-auto"
           />
           <p className="mt-4 max-w-sm">
             Aluguel de andaimes e equipamentos para construção civil em Itaquera e na Zona Leste de São Paulo.
