@@ -214,30 +214,6 @@ html:has(.itq) {
   }
 }
 
-/* ---------------------------------------------------------------- problema: a dor é riscada ao rolar */
-
-.itq-strike {
-  color: rgb(18 35 63 / 0.5);
-  /* inline + background: o risco atravessa todas as linhas, em sequência */
-  background: linear-gradient(var(--itq-signal), var(--itq-signal)) no-repeat 0 58% / 100% 0.12em;
-}
-
-/* atrelado ao scroll (quem rola controla), então vale também com movimento reduzido */
-@supports (animation-timeline: view()) {
-  .itq-strike {
-    animation: itq-strike linear both;
-    animation-timeline: view();
-    animation-range: entry 100% cover 55%;
-  }
-}
-
-@keyframes itq-strike {
-  from {
-    color: var(--itq-navy);
-    background-size: 0% 0.12em;
-  }
-}
-
 /* ---------------------------------------------------------------- como funciona: a viga acende os passos */
 
 .itq-steps {

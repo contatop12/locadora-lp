@@ -31,22 +31,27 @@ export const BAIRROS = [
   "Cidade Tiradentes",
 ]
 
-export const DORES = [
+/** Problema comum no mercado (contexto) → o que a Exatidão faz (destaque). */
+export const GARANTIAS = [
   {
-    dor: "Entrega que não chega no dia combinado",
-    solucao: "Frota própria e entrega em até 24 h após a confirmação do pedido.",
+    problema: "O andaime não chega no dia combinado e a equipe fica parada.",
+    titulo: "Entrega em até 24 h",
+    detalhe: "Com frota própria. O prazo conta a partir da confirmação do pedido.",
   },
   {
-    dor: "Peça faltando, torta ou enferrujada",
-    solucao: "Cada equipamento é conferido antes de sair do depósito.",
+    problema: "Chegam peças faltando, tortas ou enferrujadas.",
+    titulo: "Equipamento conferido",
+    detalhe: "Cada peça é revisada antes de sair do depósito.",
   },
   {
-    dor: "Módulo a mais ou a menos no orçamento",
-    solucao: "Calculamos os módulos pela altura e pela metragem da sua obra.",
+    problema: "Sobra ou falta módulo porque a quantidade foi no chute.",
+    titulo: "Quantidade calculada",
+    detalhe: "Calculamos os módulos pela altura e pela metragem da sua obra.",
   },
   {
-    dor: "Montagem improvisada, fora da norma",
-    solucao: "Andaime completo conforme a NR-18: travas, guarda-corpo, piso e sapatas.",
+    problema: "A montagem é improvisada, sem os itens de segurança.",
+    titulo: "Kit completo NR-18",
+    detalhe: "Travas, guarda-corpo, piso e sapatas para montar com segurança.",
   },
 ]
 

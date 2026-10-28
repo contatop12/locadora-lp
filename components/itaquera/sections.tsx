@@ -1,13 +1,13 @@
-import { Check, HardHat, MapPin, Mail, Clock, Plus, Quote } from "lucide-react"
+import { Check, HardHat, MapPin, Mail, Clock, Plus, Quote, X } from "lucide-react"
 import {
   ACESSORIOS,
   APLICACOES,
   BAIRROS,
   DEPOIMENTOS,
-  DORES,
   ENDERECO_COMPLETO,
   EPIS,
   FAQS,
+  GARANTIAS,
   MAPS_EMBED,
   MAPS_URL,
   NAP,
@@ -74,27 +74,41 @@ export function Problema() {
       <div className="mx-auto grid max-w-7xl gap-12 px-4 md:px-6 lg:grid-cols-[5fr_7fr] lg:gap-20">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <h2 id="problema-titulo" className="font-display text-5xl font-extrabold uppercase leading-[0.9] md:text-6xl">
-            Andaime que atrasa para a obra inteira
+            Seu andaime no dia certo, completo e na medida
           </h2>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-soft">
-            Equipe parada esperando material custa diária. Peça faltando vira improviso, e improviso em altura vira
-            risco.
+            Atraso, peça faltando e conta errada de módulos são os problemas mais comuns no aluguel de andaime. Veja
+            como evitamos cada um deles na sua obra.
           </p>
         </div>
 
-        <ul className="divide-y divide-navy/10 border-y border-navy/10">
-          {DORES.map((item) => (
-            <li key={item.dor} className="py-7">
-              <p className="font-display text-2xl font-bold uppercase leading-tight text-navy/55 md:text-3xl">
-                <span className="itq-strike">{item.dor}</span>
-              </p>
-              <p className="mt-3 flex gap-3 text-lg text-navy">
-                <Check className="mt-1 size-5 shrink-0 text-signal-deep" strokeWidth={3} aria-hidden="true" />
-                {item.solucao}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <div>
+          <div aria-hidden="true" className="hidden grid-cols-[1fr_1.3fr] gap-8 pb-4 font-semibold sm:grid">
+            <span className="text-ink-soft">Problema comum</span>
+            <span className="text-signal-deep">Na Exatidão</span>
+          </div>
+          <ul className="divide-y divide-navy/10 border-y border-navy/10">
+            {GARANTIAS.map((item) => (
+              <li key={item.titulo} className="grid gap-4 py-7 sm:grid-cols-[1fr_1.3fr] sm:gap-8">
+                <p className="flex gap-3 text-ink-soft">
+                  <X className="mt-0.5 size-5 shrink-0 text-navy/35" strokeWidth={3} aria-hidden="true" />
+                  <span>
+                    <span className="block text-sm font-semibold sm:sr-only">Problema comum</span>
+                    {item.problema}
+                  </span>
+                </p>
+                <div className="flex gap-3">
+                  <Check className="mt-1 size-6 shrink-0 text-signal-deep" strokeWidth={3} aria-hidden="true" />
+                  <div>
+                    <span className="block text-sm font-semibold text-signal-deep sm:sr-only">Na Exatidão</span>
+                    <h3 className="font-display text-2xl font-bold uppercase leading-tight md:text-3xl">{item.titulo}</h3>
+                    <p className="mt-1 text-lg text-navy">{item.detalhe}</p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   )
